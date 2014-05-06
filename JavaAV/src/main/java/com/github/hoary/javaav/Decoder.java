@@ -21,14 +21,25 @@
 
 package com.github.hoary.javaav;
 
-import com.googlecode.javacpp.BytePointer;
-import com.googlecode.javacv.cpp.avutil.*;
+import static org.bytedeco.javacpp.avcodec.av_copy_packet;
+import static org.bytedeco.javacpp.avcodec.av_free_packet;
+import static org.bytedeco.javacpp.avcodec.avcodec_decode_audio4;
+import static org.bytedeco.javacpp.avcodec.avcodec_decode_video2;
+import static org.bytedeco.javacpp.avcodec.avcodec_get_frame_defaults;
+import static org.bytedeco.javacpp.avcodec.avpicture_alloc;
+import static org.bytedeco.javacpp.avcodec.avpicture_free;
+import static org.bytedeco.javacpp.avutil.av_frame_get_best_effort_timestamp;
+import static org.bytedeco.javacpp.avutil.av_sample_fmt_is_planar;
+import static org.bytedeco.javacpp.avutil.av_samples_get_buffer_size;
+
+import org.bytedeco.javacpp.BytePointer;
+import org.bytedeco.javacpp.avcodec.AVCodecContext;
+import org.bytedeco.javacpp.avcodec.AVPacket;
+import org.bytedeco.javacpp.avcodec.AVPicture;
+import org.bytedeco.javacpp.avutil.AVRational;
 
 import java.nio.ByteBuffer;
 import java.util.Map;
-
-import static com.googlecode.javacv.cpp.avcodec.*;
-import static com.googlecode.javacv.cpp.avutil.*;
 
 /**
  * Media decoder that currently supports audio and video decoding. A {@code Decoder}

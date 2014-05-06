@@ -21,15 +21,13 @@
 
 package com.github.hoary.javaav;
 
-import com.googlecode.javacpp.Pointer;
-import com.googlecode.javacv.cpp.avutil.Arg0_Pointer_int_String_Pointer;
+import static org.bytedeco.javacpp.avutil.av_log_format_line;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import static com.googlecode.javacv.cpp.avutil.av_log_format_line;
-
-public class LogCallback extends Arg0_Pointer_int_String_Pointer {
+import org.bytedeco.javacpp.Pointer;
+import org.bytedeco.javacpp.avutil.Callback_Pointer_int_String_Pointer;
+public class LogCallback extends Callback_Pointer_int_String_Pointer  {
 
 	private final static Logger LOGGER = LogManager.getLogger(LogCallback.class.getName());
 

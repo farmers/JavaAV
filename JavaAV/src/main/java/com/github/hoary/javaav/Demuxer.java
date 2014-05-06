@@ -20,13 +20,28 @@
  */
 
 package com.github.hoary.javaav;
+import static org.bytedeco.javacpp.avcodec.av_free_packet;
+import static org.bytedeco.javacpp.avformat.av_find_input_format;
+import static org.bytedeco.javacpp.avformat.av_read_frame;
+import static org.bytedeco.javacpp.avformat.avformat_close_input;
+import static org.bytedeco.javacpp.avformat.avformat_find_stream_info;
+import static org.bytedeco.javacpp.avformat.avformat_open_input;
+import static org.bytedeco.javacpp.avutil.AVMEDIA_TYPE_AUDIO;
+import static org.bytedeco.javacpp.avutil.AVMEDIA_TYPE_VIDEO;
+import static org.bytedeco.javacpp.avutil.av_d2q;
+import static org.bytedeco.javacpp.avutil.av_dict_free;
+import static org.bytedeco.javacpp.avutil.av_dict_set;
+
+import org.bytedeco.javacpp.avcodec.AVCodecContext;
+import org.bytedeco.javacpp.avcodec.AVPacket;
+import org.bytedeco.javacpp.avformat.AVFormatContext;
+import org.bytedeco.javacpp.avformat.AVInputFormat;
+import org.bytedeco.javacpp.avformat.AVStream;
+import org.bytedeco.javacpp.avutil.AVDictionary;
+import org.bytedeco.javacpp.avutil.AVRational;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.googlecode.javacv.cpp.avcodec.*;
-import static com.googlecode.javacv.cpp.avformat.*;
-import static com.googlecode.javacv.cpp.avutil.*;
 
 /**
  * {@code Demuxer} is used to read single media streams from an input source. Media

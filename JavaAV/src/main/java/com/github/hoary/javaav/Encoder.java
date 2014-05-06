@@ -21,20 +21,44 @@
 
 package com.github.hoary.javaav;
 
-import com.googlecode.javacpp.BytePointer;
+import static org.bytedeco.javacpp.avcodec.AV_CODEC_ID_MJPEG;
+import static org.bytedeco.javacpp.avcodec.AV_FIELD_BB;
+import static org.bytedeco.javacpp.avcodec.AV_FIELD_BT;
+import static org.bytedeco.javacpp.avcodec.AV_FIELD_PROGRESSIVE;
+import static org.bytedeco.javacpp.avcodec.AV_FIELD_TB;
+import static org.bytedeco.javacpp.avcodec.AV_FIELD_TT;
+import static org.bytedeco.javacpp.avcodec.CODEC_CAP_DELAY;
+import static org.bytedeco.javacpp.avcodec.av_copy_packet;
+import static org.bytedeco.javacpp.avcodec.av_init_packet;
+import static org.bytedeco.javacpp.avcodec.avcodec_encode_audio2;
+import static org.bytedeco.javacpp.avcodec.avcodec_encode_video2;
+import static org.bytedeco.javacpp.avcodec.avcodec_get_frame_defaults;
+import static org.bytedeco.javacpp.avcodec.avpicture_alloc;
+import static org.bytedeco.javacpp.avcodec.avpicture_fill;
+import static org.bytedeco.javacpp.avcodec.avpicture_get_size;
+import static org.bytedeco.javacpp.avutil.AV_NOPTS_VALUE;
+import static org.bytedeco.javacpp.avutil.av_d2q;
+import static org.bytedeco.javacpp.avutil.av_find_nearest_q_idx;
+import static org.bytedeco.javacpp.avutil.av_free;
+import static org.bytedeco.javacpp.avutil.av_get_channel_layout_nb_channels;
+import static org.bytedeco.javacpp.avutil.av_get_default_channel_layout;
+import static org.bytedeco.javacpp.avutil.av_malloc;
+import static org.bytedeco.javacpp.avutil.av_q2d;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.bytedeco.javacpp.BytePointer;
+import org.bytedeco.javacpp.avcodec.AVCodecContext;
+import org.bytedeco.javacpp.avcodec.AVPacket;
+import org.bytedeco.javacpp.avcodec.AVPicture;
+import org.bytedeco.javacpp.avutil.AVFrame;
+import org.bytedeco.javacpp.avutil.AVRational;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
-import static com.googlecode.javacv.cpp.avcodec.*;
-import static com.googlecode.javacv.cpp.avutil.*;
-
 public class Encoder extends Coder {
 
 	private final static Logger LOGGER = LogManager.getLogger(Encoder.class.getName());

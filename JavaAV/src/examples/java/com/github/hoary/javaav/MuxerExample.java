@@ -24,9 +24,9 @@ package com.github.hoary.javaav;
 public class MuxerExample {
 
 	public static void main(String[] args) throws Exception {
-		Muxer muxer = new Muxer("src/examples/resources/out.mp4");
+		Muxer muxer = new Muxer("src/examples/resources/out3.mp4");
 		muxer.setVideoCodec(Codec.getEncoderById(CodecID.H264));
-		muxer.setAudioCodec(Codec.getEncoderById(CodecID.MP3));
+		muxer.setAudioCodec(Codec.getEncoderById(CodecID.AAC));
 		muxer.setImageWidth(600);
 		muxer.setImageHeight(350);
 		muxer.setGOPSize(25);
@@ -38,10 +38,8 @@ public class MuxerExample {
 		muxer.setAudioChannels(2);
 		muxer.open();
 
-
 		Demuxer demuxer = new Demuxer();
-		demuxer.open("src/examples/resources/bunny.mp4");
-
+		demuxer.open("src/examples/resources/Wildlife.wmv");
 		MediaFrame mediaFrame;
 		while ((mediaFrame = demuxer.readFrame()) != null) {
 			if (mediaFrame.getType() == MediaFrame.Type.VIDEO) {

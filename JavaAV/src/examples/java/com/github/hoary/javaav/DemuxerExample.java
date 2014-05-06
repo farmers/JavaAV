@@ -21,12 +21,13 @@
 
 package com.github.hoary.javaav;
 
-import com.googlecode.javacv.CanvasFrame;
+import org.bytedeco.javacv.CanvasFrame;
 
-import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+
+import javax.swing.JFrame;
 
 public class DemuxerExample {
 

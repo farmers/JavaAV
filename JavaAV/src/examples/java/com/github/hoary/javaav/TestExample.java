@@ -24,6 +24,8 @@ package com.github.hoary.javaav;
 public class TestExample {
 
 	public static void main(String[] args) throws Exception {
+	    JavaAV.loadLibrary();
+	    
 		for (String codec : Codec.getInstalledCodecs())
 		    System.out.println(codec);
 	}

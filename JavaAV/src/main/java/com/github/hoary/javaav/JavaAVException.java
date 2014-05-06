@@ -20,7 +20,6 @@
  */
 
 package com.github.hoary.javaav;
-
 public class JavaAVException extends Exception {
 
 	private static final long serialVersionUID = -8747194892449412186L;

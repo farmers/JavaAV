@@ -20,12 +20,14 @@
  */
 
 package com.github.hoary.javaav;
+import static org.bytedeco.javacpp.swscale.SWS_BILINEAR;
+import static org.bytedeco.javacpp.swscale.sws_freeContext;
+import static org.bytedeco.javacpp.swscale.sws_getCachedContext;
+import static org.bytedeco.javacpp.swscale.sws_scale;
 
-import com.googlecode.javacpp.PointerPointer;
-import com.googlecode.javacv.cpp.avcodec.AVPicture;
-import com.googlecode.javacv.cpp.swscale.*;
-
-import static com.googlecode.javacv.cpp.swscale.*;
+import org.bytedeco.javacpp.PointerPointer;
+import org.bytedeco.javacpp.avcodec.AVPicture;
+import org.bytedeco.javacpp.swscale.SwsContext;
 
 public class PictureResampler {
 
