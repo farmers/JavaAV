@@ -74,6 +74,8 @@ public abstract class Configurable {
 	/** List of codec flags for audio and video encoder. */
 	protected List<CodecFlag> flags = new ArrayList<CodecFlag>();
 
+	protected int strict;
+	
 
 	/**
 	 * Get the media type, audio, video, etc.
@@ -310,5 +312,13 @@ public abstract class Configurable {
 
 		flags.add(flag);
 	}
+
+    public int getStrict() {
+        return strict;
+    }
+
+    public void setStrict(int strict) {
+        this.strict = strict;
+    }
 
 }

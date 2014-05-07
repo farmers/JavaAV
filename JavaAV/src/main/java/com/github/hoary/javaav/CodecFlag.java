@@ -101,13 +101,8 @@ public enum CodecFlag {
 	CHUNKS              (avcodec.CODEC_FLAG2_CHUNKS),
 
 	/** Show all frames before the first keyframe */
-	SHOW_ALL            (avcodec.CODEC_FLAG2_SHOW_ALL),
-
-
-	/** Show all frames before the first keyframe */
-    EXPERIMENTAL            (avcodec.CODEC_CAP_EXPERIMENTAL),
+	SHOW_ALL            (avcodec.CODEC_FLAG2_SHOW_ALL);
 	
-	AUTO_THREAD          (avcodec.CODEC_CAP_AUTO_THREADS);
 	
 	/** FFmpeg codec flag id. */
 	private final int id;

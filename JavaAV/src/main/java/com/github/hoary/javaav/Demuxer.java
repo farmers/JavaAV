@@ -99,6 +99,7 @@ public class Demuxer extends Configurable {
 
 		if (audioChannels > 0)
 			av_dict_set(options, "channels", "" + audioChannels, 0);
+		
 
 		if (avformat_open_input(formatContext, inputSource, inputFormat, options) < 0)
 			throw new JavaAVException("Could not open input: " + inputSource);
