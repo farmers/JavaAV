@@ -21,6 +21,22 @@
 
 package com.github.hoary.javaav;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Iterator;
+
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageInputStream;
+import javax.imageio.stream.ImageOutputStream;
+
 public class MuxerExample {
 
 	public static void main(String[] args) throws Exception {
@@ -38,8 +54,10 @@ public class MuxerExample {
 		muxer.setAudioChannels(2);
 		muxer.open();
 
+		
 		Demuxer demuxer = new Demuxer();
 		demuxer.open("src/examples/resources/Wildlife.wmv");
+		
 		MediaFrame mediaFrame;
 		while ((mediaFrame = demuxer.readFrame()) != null) {
 			if (mediaFrame.getType() == MediaFrame.Type.VIDEO) {
@@ -50,8 +68,45 @@ public class MuxerExample {
 				AudioFrame frame = (AudioFrame) mediaFrame;
 				muxer.addSamples(frame);
 			}
-		}
+			if ( mediaFrame.getTimestamp() == 2  ) {
+			    VideoFrame videoFrame = (VideoFrame) mediaFrame;
+		        BufferedImage image = Image.createImage(videoFrame, BufferedImage.TYPE_3BYTE_BGR);
+		        
+		        File compressedImageFile = new File("src/examples/resources/Wildlife.jpg");
 
+		        OutputStream os = new FileOutputStream(compressedImageFile);
+
+		        float quality = 0.5f;
+
+
+		        // get all image writers for JPG format
+		        Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("jpg");
+
+		        if (!writers.hasNext())
+		            throw new IllegalStateException("No writers found");
+
+		        ImageWriter writer = (ImageWriter) writers.next();
+		        ImageOutputStream ios = ImageIO.createImageOutputStream(os);
+		        writer.setOutput(ios);
+
+		        ImageWriteParam param = writer.getDefaultWriteParam();
+
+		        // compress to a given quality
+		        param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+		        param.setCompressionQuality(quality);
+
+		        // appends a complete image stream containing a single image and
+		        //associated stream and image metadata and thumbnails to the output
+		        writer.write(null, new IIOImage(image, null, null), param);
+
+		        // close all streams
+		        os.close();
+		        ios.close();
+		        writer.dispose();
+		        
+			}
+		}
+		
 		demuxer.close();
 		muxer.close();
 	}
